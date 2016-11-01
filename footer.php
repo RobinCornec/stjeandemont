@@ -1,11 +1,14 @@
 			</div>
 		    <div class="col-sm-2 sidenav">
-		    	<h4>Ils ont donné leur avi</h4>
+		    	<h4>Ils ont donné leur avis</h4>
 		      <div class="well">
-		        <p>Avi N°1</p>
+		        <p>Avis N°1</p>
 		      </div>
 		      <div class="well">
-		        <p>Avi N°2</p>
+		        <p>Avis N°2</p>
+		      </div>
+		      <div>
+		        <p>Cette fonctionnalité n'est pas encore disponible</p>
 		      </div>
 		    </div>
 		  </div>

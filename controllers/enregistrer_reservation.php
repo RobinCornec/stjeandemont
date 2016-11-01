@@ -52,7 +52,7 @@ try{
 	}
 
 	$req->execute();
-	$_SESSION['successReservation'] = "Demande enregistrée, vous allez recevoir un mail d'ici quelques secondes, puis un autre une fois la confirmation faites par les propriétaires";
+	$_SESSION['successReservation'] = "Demande enregistrée, vous allez recevoir un mail d'ici quelques secondes, puis un autre une fois la confirmation faite par les propriétaires";
 }
 catch (Exception $e){
 	$_SESSION['errorReservation'] = 'Il y a un problème avec la réservation, veuillez vérifier vos informations = ' . $e->getMessage();

@@ -5,7 +5,7 @@ class configbdd
 {
 	const HOST = "localhost";
 	const DBNAME = "stjeandemont";
-	const USERNAME = "sjdm";
-	const PASSWORD = "sjdm";
+	const USERNAME = "root";
+	const PASSWORD = "";
 }
 
