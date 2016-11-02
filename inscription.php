@@ -24,7 +24,7 @@ include 'header.php';
   	<form method="POST" id="form_inscription" action="controllers/inscription_check.php" role="form" data-toggle="validator">
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="username">Nom d'utilisateur* :</label>
-	    <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur*" required>
+	    <input type="text" class="form-control" id="username" name="username" maxlength="20" placeholder="Nom d'utilisateur*" required>
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
@@ -42,13 +42,13 @@ include 'header.php';
 	  </div>	  
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="nom">Nom* :</label>
-	    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom*" required>
+	    <input type="text" class="form-control" id="nom" name="nom" maxlength="20" placeholder="Nom*" required>
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="prenom">Prénom :</label>
-	    <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
+	    <input type="text" class="form-control" id="prenom" name="prenom" maxlength="20" placeholder="Prénom">
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
@@ -60,13 +60,13 @@ include 'header.php';
 	  </div>  
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="phone">Téléphone :</label>
-	    <input type="text" pattern="^[0-9]{10}$" class="form-control" id="phone" name="phone" placeholder="Téléphone" min="10" max="10">
+	    <input type="text" pattern="^[0-9]{10}$" class="form-control" id="phone" maxlength="20" name="phone" placeholder="Téléphone" min="10" max="10">
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div> 
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="codePostal">Code Postal :</label>
-	    <input type="text" pattern="^[0-9]{5}$" class="form-control" id="codePostal" name="codePostal" placeholder="Code Postal">
+	    <input type="text" pattern="^[0-9]{5}$" class="form-control" id="codePostal" maxlength="5" name="codePostal" placeholder="Code Postal">
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
