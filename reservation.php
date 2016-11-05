@@ -48,13 +48,13 @@ elseif(isset($_SESSION['errorReservation']) && !empty($_SESSION['errorReservatio
                     <form method="POST" id="form_reservation" action="controllers/enregistrer_reservation.php" role="form" data-toggle="validator">
                         <div class="form-group has-feedback">
                             <label class="sr-only" for="nom">Nom* :</label>
-                            <input type="text" class="form-control" id="nom" name="nom" maxlength="20" placeholder="Nom*" value="<?php if(isset($_SESSION['nom'])) {echo $_SESSION['nom'];} ?>" required>
+                            <input type="text" class="form-control" id="nom" name="nom" maxlength="32" placeholder="Nom*" value="<?php if(isset($_SESSION['nom'])) {echo $_SESSION['nom'];} ?>" required>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="sr-only" for="prenom">Prénom :</label>
-                            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" maxlength="20" value="<?php if(isset($_SESSION['prenom'])) {echo $_SESSION['prenom'];} ?>">
+                            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" maxlength="32" value="<?php if(isset($_SESSION['prenom'])) {echo $_SESSION['prenom'];} ?>">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <div class="help-block with-errors"></div>
                         </div>

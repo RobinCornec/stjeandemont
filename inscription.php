@@ -24,7 +24,7 @@ include 'header.php';
   	<form method="POST" id="form_inscription" action="controllers/inscription_check.php" role="form" data-toggle="validator">
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="username">Nom d'utilisateur* :</label>
-	    <input type="text" class="form-control" id="username" name="username" maxlength="20" placeholder="Nom d'utilisateur*" required>
+	    <input type="text" class="form-control" id="username" name="username" maxlength="32" placeholder="Nom d'utilisateur*" required>
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
@@ -42,13 +42,13 @@ include 'header.php';
 	  </div>	  
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="nom">Nom* :</label>
-	    <input type="text" class="form-control" id="nom" name="nom" maxlength="20" placeholder="Nom*" required>
+	    <input type="text" class="form-control" id="nom" name="nom" maxlength="32" placeholder="Nom*" required>
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
 	  <div class="form-group has-feedback">
-	    <label class="sr-only" for="prenom">Prénom :</label>
-	    <input type="text" class="form-control" id="prenom" name="prenom" maxlength="20" placeholder="Prénom">
+	    <label class="sr-only" for="prenom">Prénom* :</label>
+	    <input type="text" class="form-control" id="prenom" name="prenom" maxlength="32" placeholder="Prénom" required>
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
