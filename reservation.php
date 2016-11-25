@@ -14,20 +14,22 @@ $resultat = $req->fetchAll();
     <h1>Réservations</h1>
     <hr>
 <?php
-if(isset($_SESSION['successReservation']) && !empty($_SESSION['successReservation'])){
-    echo '<div class="alert alert-success">
-		     <strong>Succès !</strong> ' . $_SESSION["successReservation"] . '
-		  </div>';
+if($_SESSION['login']){
 
-    $_SESSION['successReservation'] = "";
-}
-elseif(isset($_SESSION['errorReservation']) && !empty($_SESSION['errorReservation'])){
-    echo '<div class="alert alert-danger">
-		     <strong>Attention !</strong> ' . $_SESSION["errorReservation"] . '
-		  </div>';
+    if(isset($_SESSION['successReservation']) && !empty($_SESSION['successReservation'])){
+        echo '<div class="alert alert-success">
+                 <strong>Succès !</strong> ' . $_SESSION["successReservation"] . '
+              </div>';
 
-    $_SESSION['errorReservation'] = "";
-}
+        $_SESSION['successReservation'] = "";
+    }
+    elseif(isset($_SESSION['errorReservation']) && !empty($_SESSION['errorReservation'])){
+        echo '<div class="alert alert-danger">
+                 <strong>Attention !</strong> ' . $_SESSION["errorReservation"] . '
+              </div>';
+
+        $_SESSION['errorReservation'] = "";
+    }
 
 ?>
 
@@ -135,6 +137,7 @@ elseif(isset($_SESSION['errorReservation']) && !empty($_SESSION['errorReservatio
                 },
                 events: [
 <?php
+
 foreach ($resultat as $res){
     if($_SESSION['isAdmin']){
         echo "{
@@ -177,4 +180,9 @@ foreach ($resultat as $res){
         });
     </script>
 <?php
+
+}
+else{
+    echo "Veuillez vous connecter avant de réserver";
+}
 include 'footer.php';
