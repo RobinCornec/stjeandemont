@@ -4,12 +4,12 @@ include('../DAO/config.php');
 $pdo = new PDO('mysql:host='.configbdd::HOST.';dbname='.configbdd::DBNAME, configbdd::USERNAME, configbdd::PASSWORD);
 
 //POST/GET value
-$username = $_POST['username'];
+$mail = $_POST['mail'];
 $password = hash('sha512',$_POST['pwd']);
 
 // Vérification des identifiants
-$req = $pdo->prepare('SELECT id, nom, prenom, isAdmin, tel, mail FROM users WHERE username = :username AND password = :password');
-$req->bindParam(':username', $username);
+$req = $pdo->prepare('SELECT id, nom, prenom, isAdmin, tel FROM users WHERE mail = :mail AND password = :password');
+$req->bindParam(':mail', $mail);
 $req->bindParam(':password', $password);
 
 $req->execute();
@@ -43,7 +43,6 @@ else
     $_SESSION['isAdmin'] = $resultat['isAdmin'];
     $_SESSION['tel'] = $resultat['tel'];
     $_SESSION['mail'] = $resultat['mail'];
-    $_SESSION['username'] = $username;
     $_SESSION['login'] = true;
 
     header('Location: ../index.php');

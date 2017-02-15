@@ -8,29 +8,27 @@ $req = $pdo->prepare('SELECT r.dateDebut, r.dateFin, r.idUser, r.nom, r.prenom, 
 FROM reservations r JOIN statut s ON r.idStatut = s.id
 ORDER BY dateDebut ASC ');
 $req->execute();
-$resultat = $req->fetchAll();
 ?>
 
     <h1>Réservations</h1>
     <hr>
 <?php
-if($_SESSION['login']){
+if($_SESSION['login']) {
 
-    if(isset($_SESSION['successReservation']) && !empty($_SESSION['successReservation'])){
+    if (isset($_SESSION['successReservation']) && !empty($_SESSION['successReservation'])) {
         echo '<div class="alert alert-success">
                  <strong>Succès !</strong> ' . $_SESSION["successReservation"] . '
               </div>';
 
         $_SESSION['successReservation'] = "";
-    }
-    elseif(isset($_SESSION['errorReservation']) && !empty($_SESSION['errorReservation'])){
+    } elseif (isset($_SESSION['errorReservation']) && !empty($_SESSION['errorReservation'])) {
         echo '<div class="alert alert-danger">
                  <strong>Attention !</strong> ' . $_SESSION["errorReservation"] . '
               </div>';
 
         $_SESSION['errorReservation'] = "";
     }
-
+}
 ?>
 
     <!-- Calendrier -->
@@ -123,12 +121,18 @@ if($_SESSION['login']){
             $('#calendar').fullCalendar({
                 locale: 'fr',
                 customButtons: {
+                    <?php
+                    if($_SESSION['login']){
+                    ?>
                     myCustomButton: {
                         text: 'Ajouter une réservation',
                         click: function() {
                             $('#myModal').modal('show');
                         }
                     }
+                    <?php
+                    }
+                    ?>
                 },
                 header: {
                     left: 'title',
@@ -139,7 +143,7 @@ if($_SESSION['login']){
 <?php
 
 foreach ($resultat as $res){
-    if($_SESSION['isAdmin']){
+    if($_SESSION['login'] && $_SESSION['isAdmin']){
         echo "{
             start: '" . $res['dateDebut'] . "',
             end: '" . $res['dateFin'] . "',
@@ -180,9 +184,4 @@ foreach ($resultat as $res){
         });
     </script>
 <?php
-
-}
-else{
-    echo "Veuillez vous connecter avant de réserver";
-}
 include 'footer.php';

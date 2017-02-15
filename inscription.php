@@ -22,13 +22,13 @@ include 'header.php';
 	?>
   <p>
   	<form method="POST" id="form_inscription" action="controllers/inscription_check.php" role="form" data-toggle="validator">
-	  <div class="form-group has-feedback">
-	    <label class="sr-only" for="username">Nom d'utilisateur* :</label>
-	    <input type="text" class="form-control" id="username" name="username" maxlength="32" placeholder="Nom d'utilisateur*" required>
-	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	    <div class="help-block with-errors"></div>
-	  </div>
-	  <div class="form-group has-feedback">
+    <div class="form-group has-feedback">
+        <label class="sr-only" for="email">Email* :</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email*" required>
+        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group has-feedback">
 	    <label class="sr-only" for="pwd">Mot de passe* :</label>
 	    <input type="password" data-minlength="6" class="form-control" id="pwd" name="pwd" placeholder="Mot de passe*" required>
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -52,12 +52,6 @@ include 'header.php';
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>
-	  <div class="form-group has-feedback">
-	    <label class="sr-only" for="email">Email* :</label>
-	    <input type="email" class="form-control" id="email" name="email" placeholder="Email*" required>
-	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	    <div class="help-block with-errors"></div>
-	  </div>  
 	  <div class="form-group has-feedback">
 	    <label class="sr-only" for="phone">Téléphone :</label>
 	    <input type="text" pattern="^[0-9]{10}$" class="form-control" id="phone" maxlength="20" name="phone" placeholder="Téléphone" min="10" max="10">

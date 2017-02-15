@@ -7,8 +7,8 @@ include 'header.php';
 
  <form method="POST" action="controllers/login_check.php" class="form-inline">
   <div class="form-group">
-    <label class="sr-only" for="username">Nom d'utilisateur :</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur" maxlength="32" required>
+    <label class="sr-only" for="mail">Email :</label>
+    <input type="text" class="form-control" id="mail" name="mail" placeholder="Email" maxlength="32" required>
   </div>
   <div class="form-group">
     <label class="sr-only" for="pwd">Mot de passe :</label>

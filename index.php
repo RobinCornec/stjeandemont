@@ -1,7 +1,8 @@
 <?php
 include 'header.php';
 ?>
-
+<!--Penser à rogner l'image avec ps ou paint-->
+<!--    <img src="public/images/estacade-saint-jean-de-monts.jpg" alt="Estacade St Jean de Monts" class="mainImg">-->
   <h1>Bienvenue !</h1>
   <hr>
   <h3>La résidence</h3>

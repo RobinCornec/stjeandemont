@@ -6,22 +6,27 @@ include('../DAO/config.php');
 $pdo = new PDO('mysql:host='.configbdd::HOST.';dbname='.configbdd::DBNAME, configbdd::USERNAME, configbdd::PASSWORD);
 
 //POST/GET value
-$username = $_POST['username'];
 $password = hash('sha512',$_POST['pwd']);
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'] ? $_POST['prenom'] : "NULL";
 $mail = $_POST['email'];
 $tel = $_POST['phone'] ? $_POST['phone'] : "NULL";
 $codePostal = $_POST['codePostal'] ? $_POST['codePostal'] : "NULL";
-$ville = $_POST['ville'] ? $_POST['ville'] : "NULL";
+$ville = $_POST['ville'] ? $_POST['ville'] : null;
 
 $dateCreation = new DateTime();
 $dateCreation = $dateCreation->format('Y-m-d H:i:s');
 
 try{
+    $reqS = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');
+    $reqS->bindParam(':mail', $mail);
+    $reqS->execute();
+    if($reqS->rowCount() > 0){
+        throw new Exception("L'email est déja utilisé");
+    }
 
-	$req = $pdo->prepare('INSERT INTO users (username, password, nom, prenom, mail, tel, codePostal, ville, dateCreation) VALUES (:username, :password, :nom, :prenom, :mail, :tel, :codePostal, :ville, :dateCreation)');
-	$req->bindParam(':username', $username);
+
+	$req = $pdo->prepare('INSERT INTO users (password, nom, prenom, mail, tel, codePostal, ville, dateCreation) VALUES (:password, :nom, :prenom, :mail, :tel, :codePostal, :ville, :dateCreation)');
 	$req->bindParam(':password', $password);
 	$req->bindParam(':nom', $nom);
 	$req->bindParam(':prenom', $prenom);
@@ -32,11 +37,10 @@ try{
 	$req->bindParam(':dateCreation', $dateCreation);
 
 	$req->execute();
-
 	$_SESSION['successInscritption'] = "Inscription faite, vous allez recevoir un mail d'ici quelques secondes";
 }
 catch (Exception $e){
-	$_SESSION['errorInscritption'] = 'Il y a un problème avec l\'inscription, veuillez vérifier vos informations = ' . $e->getMessage();
+	$_SESSION['errorInscritption'] = 'Il y a un problème avec l\'inscription, veuillez vérifier vos informations : ' . $e->getMessage();
 }
 
 header('Location: ../inscription.php');
