@@ -8,6 +8,8 @@ $req = $pdo->prepare('SELECT r.dateDebut, r.dateFin, r.idUser, r.nom, r.prenom, 
 FROM reservations r JOIN statut s ON r.idStatut = s.id
 ORDER BY dateDebut ASC ');
 $req->execute();
+$resultat = $req->fetchAll();
+//var_dump($resultat);die;
 ?>
 
     <h1>Réservations</h1>
@@ -143,26 +145,35 @@ if($_SESSION['login']) {
 <?php
 
 foreach ($resultat as $res){
+    $libelle = $res['libelle'];
+    $dateDebut = $res['dateDebut'];
+    $dateFin = $res['dateFin'];
+    $idUser = $res['idUser'];
+    $nom = $res['nom'];
+    $prenom = $res['prenom'];
+    $mail = $res['mail'];
+    $phone = $res['phone'];
+
     if($_SESSION['login'] && $_SESSION['isAdmin']){
         echo "{
-            start: '" . $res['dateDebut'] . "',
-            end: '" . $res['dateFin'] . "',
-            title: '" . $res['nom'] . " " . $res['prenom'] . " - " . $res['mail'] . " - " . $res['phone'] . "',";
-            if ($res['libelle'] == 'Valide') {
+            start: '" . $dateDebut . "',
+            end: '" . $dateFin . "',
+            title: '" . $nom . " " . $prenom . " - " . $mail . " - " . $phone . "',";
+            if ($libelle == 'Valide') {
                 echo "color: '#4CAF50',";
             }
-            elseif ($res['libelle'] == 'Refuse'){
+            elseif ($libelle == 'Refuse'){
                 echo "color: '#D9534F',";
             }
         echo "},";
     }
-    elseif($res['libelle'] != 'Refuse') {
+    elseif($libelle != 'Refuse') {
         echo "{
-            start: '" . $res['dateDebut'] . "',
-            end: '" . $res['dateFin'] . "',";
-        if (isset($res['idUser']) && !empty($res['idUser']) && $_SESSION['login'] && $res['idUser'] == $_SESSION['id']) {
-            echo "title: '" . $res['nom'] . " " . $res['prenom'] . " - " . $res['mail'] . " - " . $res['phone'] . "',";
-            if ($res['libelle'] == 'Valide') {
+            start: '" . $dateDebut . "',
+            end: '" . $dateFin . "',";
+        if (isset($idUser) && !empty($idUser) && $_SESSION['login'] && $idUser == $_SESSION['id']) {
+            echo "title: '" . $nom . " " . $prenom . " - " . $mail . " - " . $phone . "',";
+            if ($libelle == 'Valide') {
                 echo "color: '#4CAF50',";
             }
         }

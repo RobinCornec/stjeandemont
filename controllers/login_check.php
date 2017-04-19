@@ -24,7 +24,7 @@ if (!$resultat)
 
 	session_start();
 
-    $_SESSION['erreurMsg'] = 'Mauvais identifiant ou mot de passe !';
+    $_SESSION['erreurMsg'] = 'Mauvais email ou mot de passe !';
     $_SESSION['login'] = false;
 
 	// Suppression des cookies de connexion automatique

@@ -22,7 +22,7 @@ try{
     $reqS->bindParam(':mail', $mail);
     $reqS->execute();
     if($reqS->rowCount() > 0){
-        throw new Exception("L'email est déja utilisé");
+        throw new Exception("L'email est déjà utilisé");
     }
 
 
