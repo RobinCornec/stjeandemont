@@ -1,8 +1,8 @@
 <?php
-require_once '../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+require_once './vendor/swiftmailer/swiftmailer/lib/swift_required.php';
 
-$from='contact@stjeandemonts.fr';
-$to='robin.cornec@laposte.net';
+$from= array('contact@stjeandemonts.fr'=>'on sen fou');
+$to= array('robin.cornec@laposte.net'=>'on sen fou');
 $subject='test';
 $corp='test';
 //$this->sendMessage('contact@stjeandemonts.fr','robin.cornec@laposte.net','test','test');
@@ -11,15 +11,10 @@ $corp='test';
     $transport = Swift_SmtpTransport::newInstance('localhost', 25);
 
     $mailer = Swift_Mailer::newInstance($transport);
-    
-    $message = Swift_Message::newInstance()
-        // Give the message a subject
-        ->setSubject($subject)
-        // Set the From address with an associative array
+
+    $message = Swift_Message::newInstance($subject)
         ->setFrom($from)
-        // Set the To addresses with an associative array
         ->setTo($to)
-        // Give it a body
         ->setBody($corp)
     ;
 
@@ -27,10 +22,10 @@ $corp='test';
 
     if ($mailer->send($message))
     {
-        return true;
+        echo 'envoyé \n';
     }
     else
     {
-        return false;
+        echo 'erreur \n';
     }
 //}
