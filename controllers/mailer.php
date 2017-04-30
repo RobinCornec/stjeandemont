@@ -1,31 +1,30 @@
 <?php
 require_once './vendor/swiftmailer/swiftmailer/lib/swift_required.php';
 
-$from= array('contact@stjeandemonts.fr'=>'on sen fou');
-$to= array('robin.cornec@laposte.net'=>'on sen fou');
-$subject='test';
-$corp='test';
-//$this->sendMessage('contact@stjeandemonts.fr','robin.cornec@laposte.net','test','test');
+class Mailer{
 
-//public function sendMessage($from,$to,$subject,$corp){
-    $transport = Swift_SmtpTransport::newInstance('localhost', 25);
+    public function sendMessage($to,$subject,$corp){
+        try{
+            $from= array('ncornec@neuf.fr'=>'Gîtes St Jean de Monts');
 
-    $mailer = Swift_Mailer::newInstance($transport);
+            $transport = Swift_SmtpTransport::newInstance('smtp.sfr.fr', 25)
+                ->setUsername('ncornec@neuf.fr')
+                ->setPassword('h4qvz4j6')
+            ;
 
-    $message = Swift_Message::newInstance($subject)
-        ->setFrom($from)
-        ->setTo($to)
-        ->setBody($corp)
-    ;
+            $mailer = Swift_Mailer::newInstance($transport);
 
-    $numSent = $mailer->send($message);
+            $message = Swift_Message::newInstance($subject)
+                ->setFrom($from)
+                ->setTo($to)
+                ->setBody($corp)
+            ;
 
-    if ($mailer->send($message))
-    {
-        echo 'envoyé \n';
+            $mailer->send($message);
+        }
+        catch (\Exception){
+            var_dump($e->getMessage());
+        }
     }
-    else
-    {
-        echo 'erreur \n';
-    }
-//}
+
+}
