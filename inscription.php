@@ -47,8 +47,8 @@ include 'header.php';
 	    <div class="help-block with-errors"></div>
 	  </div>
 	  <div class="form-group has-feedback">
-	    <label class="sr-only" for="prenom">Prénom* :</label>
-	    <input type="text" class="form-control" id="prenom" name="prenom" maxlength="32" placeholder="Prénom" required>
+	    <label class="sr-only" for="prenom">Prénom :</label>
+	    <input type="text" class="form-control" id="prenom" name="prenom" maxlength="32" placeholder="Prénom">
 	    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	    <div class="help-block with-errors"></div>
 	  </div>

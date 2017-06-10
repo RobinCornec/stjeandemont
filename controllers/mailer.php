@@ -1,5 +1,5 @@
 <?php
-require_once './vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+require_once '../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
 
 class Mailer{
 
@@ -17,12 +17,12 @@ class Mailer{
             $message = Swift_Message::newInstance($subject)
                 ->setFrom($from)
                 ->setTo($to)
-                ->setBody($corp)
+                ->setBody($corp, 'text/html')
             ;
 
             $mailer->send($message);
         }
-        catch (\Exception){
+        catch (\Exception $e){
             var_dump($e->getMessage());
         }
     }

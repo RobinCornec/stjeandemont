@@ -14,7 +14,7 @@
 		  </div>
 		</div>
 		<footer class="container-fluid text-center navbar-fixed-bottom">
-		  <p>©2016 Cornec</p>
+		  <p>©2016-<?php echo date("Y"); ?> Cornec</p>
 		</footer>
 	</body>
 </html>
