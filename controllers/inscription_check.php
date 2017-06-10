@@ -43,7 +43,7 @@ try{
     $subject = 'Gîte St-Jean-De-Monts - Inscription';
     $corp = "Bonjour,<br/> 
 Nous vous confirmons votre inscription sur notre site et vous souhaitons une agréable visite.<br/>
-Vous pouvez dès à présent vous connecter et réserver vos vacances à l'adresse http://ddns.robincornec.ovh/stjeandemonts <br><br>
+Vous pouvez dès à présent vous connectez et réservez vos vacances à l'adresse http://ddns.robincornec.ovh/stjeandemonts <br><br>
 Cordialement, <br>
 La famille Cornec.
 ";
