@@ -23,14 +23,14 @@ try{
 	}
 	else{
 		$BDDdateDebut = $dateDebut->format('Y-m-d');
-        $BDDdateDebut = $dateFin->format('Y-m-d');
+        $BDDdateFin = $dateFin->format('Y-m-d');
 	}
 
 	if($_SESSION['login']){
 		
 		$req = $pdo->prepare('INSERT INTO reservations (dateDebut, dateFin, nbPersonne, idUser, nom, prenom, mail, phone) VALUES (:dateDebut, :dateFin, :nbPersonne, :idUser, :nom, :prenom, :mail, :phone)');
 		$req->bindParam(':dateDebut', $BDDdateDebut);
-		$req->bindParam(':dateFin', $BDDdateDebut);
+		$req->bindParam(':dateFin', $BDDdateFin);
 		$req->bindParam(':nbPersonne', $nbPersonne);
 		$req->bindParam(':idUser', $_SESSION['id']);
 		$req->bindParam(':nom', $nom);
