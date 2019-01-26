@@ -7,7 +7,7 @@ class Mailer{
         try{
             $from= array('ncornec@neuf.fr'=>'Gîtes St Jean de Monts');
 
-            $transport = Swift_SmtpTransport::newInstance('smtp.sfr.fr', 25)
+            $transport = Swift_SmtpTransport::newInstance('smtp.sfr.fr', 465, 'ssl')
                 ->setUsername('ncornec@neuf.fr')
                 ->setPassword('h4qvz4j6')
             ;
