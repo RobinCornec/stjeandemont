@@ -3,9 +3,9 @@
 
 class configbdd
 {
-	const HOST = "lecosyvesgrobin.mysql.db";
-	const DBNAME = "lecosyvesgrobin";
-	const USERNAME = "lecosyvesgrobin";
-	const PASSWORD = "Cornec12";
+	const HOST = "local";
+	const DBNAME = "dbname";
+	const USERNAME = "username";
+	const PASSWORD = "";
 }
 
