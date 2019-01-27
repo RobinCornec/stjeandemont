@@ -1,4 +1,3 @@
 /.idea/
-/DAO/
+/DAO/*
 /vendor
-controllers/mailer.php

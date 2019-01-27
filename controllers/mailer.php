@@ -18,7 +18,7 @@ class Mailer{
                 'html' => $corp,
             ]);
 
-            curl_setopt($ch, CURLOPT_USERPWD, 'api' . ':' . '7006f0ee0ef5bc5777a2f40d7a76440f-2d27312c-f4c29e7e');
+            curl_setopt($ch, CURLOPT_USERPWD, 'api' . ':' . 'PUT_MAILGUN_KEY_HERE');
 
             $result = curl_exec($ch);
             if (curl_errno($ch)) {
