@@ -7,6 +7,7 @@ require_once('mailer.php');
 $pdo = new PDO('mysql:host='.configbdd::HOST.';dbname='.configbdd::DBNAME, configbdd::USERNAME, configbdd::PASSWORD);
 
 //POST/GET value
+
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'] ? $_POST['prenom'] : "NULL";
 $email = $_POST['email'];
@@ -69,9 +70,9 @@ A bientôt, <br>
 La famille Cornec.
 ";
     $mail = new Mailer();
-    $mail->sendMessage($to,$subject,$corp);
+    $mail->sendMessageMailgun($to,$subject,$corp);
 
-    $toAdmin =  'ncornec@neuf.fr';
+    $toAdmin =  'robin.cornec@laposte.net';
     $subjectAdmin = 'Gîte St-Jean-De-Monts - Demande de Réservation';
     $corpAdmin = "
 Une nouvelle demande de réservations a été faites <br><br>
@@ -85,7 +86,7 @@ Nombre de personnes : ".$nbPersonne."
 
 ";
     $mailAdmin = new Mailer();
-    $mailAdmin->sendMessage($toAdmin,$subjectAdmin, $corpAdmin);
+    $mailAdmin->sendMessageMailgun($toAdmin,$subjectAdmin, $corpAdmin);
 
 }
 catch (Exception $e){

@@ -1,0 +1,287 @@
+#!/usr/bin/env bash
+if test "$BASH" = "" || "$BASH" -uc "a=();true \"\${a[@]}\"" 2>/dev/null; then
+    # Bash 4.4, Zsh
+    set -euo pipefail
+else
+    # Bash 4.3 and older chokes on empty arrays with set -u.
+    set -eo pipefail
+fi
+shopt -s nullglob globstar
+
+# Source .env, which can over-ride env vars
+if [ -f .env ]; then
+	source .env
+fi
+
+# Set default values
+export APP_PORT=${APP_PORT:-80}
+export WWWUSER=${WWWUSER:-$UID}
+
+COMPOSE="docker-compose -f docker/docker-compose.yml"
+
+if [[ -z "$COMPOSE_PROJECT_NAME" ]]; then
+	COMPOSE_PROJECT_NAME=${PWD##*/}
+fi
+
+# Is the environment running ?
+PSRESULT="$(docker-compose -f docker/docker-compose.yml ps -q)"
+if [ ! -z "$PSRESULT" ]; then
+	EXEC="yes"
+else
+	EXEC="no"
+fi
+
+show_help() {
+	echo "Available commands:"
+	echo
+	echo "  ./dock bin <binary>        Run a binary from the bin folder"
+	echo "  ./dock composer <command>  Run any Composer command"
+	echo "  ./dock console <command>   Run Symfony's console"
+	echo "  ./dock help                Display this help"
+	echo "  ./dock init                Initialize Dock"
+	echo "  ./dock database:connect    Connect to the MySQL database"
+	echo "  ./dock database:reset      Remove the database volumes"
+	echo "  ./dock restart             Restart the containers"
+	echo "  ./dock ssh                 Connect through SSH to the PHP container"
+	echo "  ./dock start               Start the containers"
+	echo "  ./dock status              Show if containers are actually running"
+	echo "  ./dock stop                Stop the containers"
+	echo "  ./dock tests               Run all tests"
+	echo "  ./dock tests:qa            Run QA tests"
+	echo "  ./dock tests:cs            Run CS tests"
+	echo "  ./dock tests:unit          Run unit tests"
+	echo "  ./dock <anything else>     Run a Docker Compose command"
+
+	exit 1
+}
+
+bin() {
+	if [ "$EXEC" == "yes" ]; then
+		$COMPOSE exec \
+			--user $WWWUSER \
+			php-fpm \
+			php ./bin/"$@"
+	else
+		$COMPOSE run --rm \
+			php-fpm \
+			php ./bin/"$@"
+	fi
+}
+
+composer() {
+	composer_options=""
+	if [ "$#" -gt 1 ]; then
+		if [ "$2" == "install" ] || \
+			[ "$2" == "require" ] || \
+			[ "$2" == "update" ] || \
+			[ "$2" == "upgrade" ] || \
+			[ "$2" == "dump-autoload" ]; then
+			composer_options="--no-scripts --ignore-platform-reqs"
+		fi
+	fi
+
+	docker run --rm \
+		-v $PWD:/app \
+		-u $UID \
+		-it composer:latest \
+		$@ $composer_options
+}
+
+console() {
+	shift 1
+	bin console $@
+}
+
+database_connect() {
+	if [ "$EXEC" == "no" ]; then
+		echo "Please start containers to access the database."
+		exit 1
+	fi
+
+	$COMPOSE exec \
+		mariadb \
+		mysql $DB_NAME \
+		-u $DB_USER \
+		--password=$DB_PASSWORD
+}
+
+database_reset() {
+	if [ "$EXEC" == "yes" ]; then
+		echo "Please stop the containers before resetting databases: ./dock stop"
+		exit 1
+	fi
+
+	docker volume rm ${COMPOSE_PROJECT_NAME}_mariadb-data && echo "Volumes removed !"
+}
+
+init() {
+	if [ ! -f .env ]; then
+		cp .env.example .env
+	fi
+
+	$COMPOSE build --pull
+}
+
+ssh() {
+	if [ "$EXEC" == "yes" ]; then
+		$COMPOSE exec \
+			--user $WWWUSER \
+			php-fpm \
+			/bin/bash
+	else
+		$COMPOSE run --rm \
+			php-fpm \
+			/bin/bash
+	fi
+}
+
+start() {
+	echo "Starting containers..."
+	$COMPOSE up -d
+}
+
+status() {
+	if [ "$EXEC" == "yes" ]; then
+		echo "Dock is running."
+	else
+		echo "Dock is not running."
+	fi
+}
+
+stop() {
+	echo "Stopping containers..."
+	$COMPOSE down
+}
+
+phpcs() {
+	docker run --init -it -v $PWD:/project -w /project jakzal/phpqa phpcs
+}
+
+php_cs_fixer() {
+	docker run --init -it -v $PWD:/project -w /project jakzal/phpqa php-cs-fixer fix --allow-risky=yes
+}
+
+phpmd() {
+	docker run --init -it -v $PWD:/project -w /project jakzal/phpqa phpmd src text phpmd.xml
+}
+
+phplint() {
+	docker run --init -it -v $PWD:/project -w /project jakzal/phpqa phplint ./ --exclude=vendor
+}
+
+phpstan() {
+	docker run --init -it -v $PWD:/project -w /project jakzal/phpqa phpstan analyse --level 2 src
+}
+
+cs() {
+	php_cs_fixer
+	phpcs
+	phpmd
+}
+
+qa() {
+	cs
+	phplint
+	phpstan
+}
+
+unit() {
+	if [ "$EXEC" == "yes" ]; then
+		$COMPOSE exec \
+			--user $WWWUSER \
+			php-fpm \
+			./vendor/bin/simple-phpunit
+	else
+		$COMPOSE run --rm \
+			php-fpm \
+			./vendor/bin/simple-phpunit
+	fi
+}
+
+tests() {
+	unit
+	qa
+}
+
+# If we pass any arguments...
+if [ $# -gt 0 ]; then
+
+	case "$1" in
+
+		start)
+			start
+			;;
+
+		stop)
+			stop
+			;;
+
+		status)
+			status
+			;;
+
+		restart)
+			if [ "$EXEC" == "yes" ]; then
+				stop
+			fi
+			start
+			;;
+
+		composer)
+			composer $@
+			;;
+
+		console)
+			shift 1
+			console $@
+			;;
+
+		bin)
+			shift 1
+			bin $@
+			;;
+
+		ssh)
+			ssh
+			;;
+
+		database:connect)
+			database_connect
+			;;
+
+		database:reset)
+			database_reset
+			;;
+
+		init)
+			init
+			;;
+
+		tests)
+			tests
+			;;
+
+		tests:unit)
+			unit
+			;;
+
+		tests:cs)
+			cs
+			;;
+
+		tests:qa)
+			qa
+			;;
+
+		help)
+			show_help
+			;;
+
+		*)
+			$COMPOSE "$@"
+			;;
+		esac
+else
+	# Show available commands if nothing else passed through
+	show_help
+fi

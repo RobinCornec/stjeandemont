@@ -34,7 +34,7 @@ else{
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  	<title>St-Jean-De-Monts</title>
+  	<title>Reservation d'une maison à St-Jean-De-Monts</title>
 
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">

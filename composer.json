@@ -1,5 +1,9 @@
 {
     "require": {
-        "swiftmailer/swiftmailer": "^5.4"
+        "swiftmailer/swiftmailer": "^5.4",
+        "mailgun/mailgun-php": "^2.8",
+        "php-http/curl-client": "^1.7",
+        "guzzlehttp/psr7": "^1.5",
+        "ext-curl": "^7.2"
     }
 }
