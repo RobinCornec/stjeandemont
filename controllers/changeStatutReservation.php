@@ -103,6 +103,6 @@ $to =  $email;
 $subject = 'Gîte St-Jean-De-Monts - Votre Réservation';
 
 $mail = new Mailer();
-$mail->sendMessageMailgun($to,$subject,$corp);
+$mail->sendMessage($to,$subject,$corp);
 
 header('Location: ../adminBooking.php');

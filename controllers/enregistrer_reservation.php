@@ -70,9 +70,9 @@ A bientôt, <br>
 La famille Cornec.
 ";
     $mail = new Mailer();
-    $mail->sendMessageMailgun($to,$subject,$corp);
+    $mail->sendMessage($to,$subject,$corp);
 
-    $toAdmin =  'robin.cornec@laposte.net';
+    $toAdmin =  'ncornec@neuf.fr';
     $subjectAdmin = 'Gîte St-Jean-De-Monts - Demande de Réservation';
     $corpAdmin = "
 Une nouvelle demande de réservations a été faites <br><br>
@@ -86,7 +86,7 @@ Nombre de personnes : ".$nbPersonne."
 
 ";
     $mailAdmin = new Mailer();
-    $mailAdmin->sendMessageMailgun($toAdmin,$subjectAdmin, $corpAdmin);
+    $mailAdmin->sendMessage($toAdmin,$subjectAdmin, $corpAdmin);
 
 }
 catch (Exception $e){

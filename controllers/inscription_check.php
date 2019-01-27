@@ -48,7 +48,7 @@ Cordialement, <br>
 La famille Cornec.
 ";
     $mail = new Mailer();
-    $mail->sendMessageMailgun($to,$subject,$corp);
+    $mail->sendMessage($to,$subject,$corp);
 }
 catch (Exception $e){
 	$_SESSION['errorInscritption'] = 'Il y a un problème avec l\'inscription, veuillez vérifier vos informations : ' . $e->getMessage();
