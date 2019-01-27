@@ -3,9 +3,9 @@
 
 class configbdd
 {
-	const HOST = "mariadb";
-	const DBNAME = "stjeandemonts";
-	const USERNAME = "robin";
-	const PASSWORD = "secret";
+	const HOST = "local";
+	const DBNAME = "dbname";
+	const USERNAME = "username";
+	const PASSWORD = "";
 }
 
